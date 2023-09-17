@@ -6,10 +6,10 @@ import SearchInput from "./components/search-input";
 import TaskList from "./components/task-list";
 const App = ()=>{
     const tasks = [
-        {text:'Buy bread', isComplete:true},
-        {text:'Buy notebook', isComplete:false},
-        {text:'Send homework nakonec to', isComplete:true},
-        {text:'Do homework', isComplete:false}
+        {id :1, text:'Buy bread', isComplete:true},
+        {id :2, text:'Buy notebook', isComplete:false},
+        {id :3, text:'Send homework nakonec to', isComplete:true},
+        {id :4, text:'Do homework', isComplete:false}
 
     ]
     return(
