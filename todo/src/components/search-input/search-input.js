@@ -1,14 +1,9 @@
 import React from "react";
-
+import './search-input.css'
 const SearchInput = ({placeText})=>{
-    const searchStyle = {
-        fontSize: '30px',
-        color: 'red'
-    }
-
     return(
-        <input 
-            style={searchStyle}
+        <input
+            className="form-control search-input"
             type="text" placeholder={placeText}
         />
     )
