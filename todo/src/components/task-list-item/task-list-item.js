@@ -1,18 +1,25 @@
-import React from "react";
 import './task-list-item.css'
-const TaskListItem = ({text, isComplete})=>{
-    const itemStyle = {
-        textDecoration: isComplete ? 'line-through' : 'none'
-    }
-    return (<span className="todo-list-item">
+
+import React, {Component} from 'react';
+
+class TaskListItem extends Component {
+    render() {
+
+        const itemStyle = {
+            textDecoration: this.props.isComplete ? 'line-through' : 'none'
+        }
+        return (<span className="todo-list-item">
         <span
             className='todo-list-item-text'
             style={itemStyle}
         >
-            {text}
+            {this.props.text}
         </span>
     </span>
-    )
+        )
+    }
 }
 
-export default TaskListItem
+    export
+    default
+    TaskListItem

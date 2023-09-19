@@ -1,12 +1,16 @@
-import React from "react";
+import React, {Component} from 'react';
+
 import './search-input.css'
-const SearchInput = ({placeText})=>{
-    return(
-        <input
-            className="form-control search-input"
-            type="text" placeholder={placeText}
-        />
-    )
+
+class SearchInput extends Component {
+    render() {
+        return(
+            <input
+                className="form-control search-input"
+                type="text" placeholder={this.props.placeText}
+            />
+        )
+    }
 }
 
-export default SearchInput
+export default SearchInput;
