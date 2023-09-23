@@ -15,7 +15,6 @@ class TaskList extends Component {
                 />
             </li>
         })
-
         return(
             <ul className="list-group list-todo">
                 {elements}
