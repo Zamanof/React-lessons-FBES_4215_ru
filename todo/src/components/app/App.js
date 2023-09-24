@@ -8,8 +8,27 @@ import TaskList from "../task-list";
 import './app.css'
 import StatusFilter from "../status-filter";
 import ItemAdd from "../item-add";
+import TodoService from "../../todo-service";
 
 class App extends Component {
+    // service = new TodoService()
+    constructor() {
+        super();
+        // this.updateData()
+    }
+    componentDidMount() {
+        fetch('http://localhost:5023/api/Todo/1',
+            {
+                mode:"no-cors",
+               headers:{
+                   "Access-Control-Request":"access-control-allow-origin"
+               }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            });
+    }
     state = {
         tasks:[
             {id :1, text:'Buy bread'},
@@ -53,6 +72,14 @@ class App extends Component {
         return tasks.filter((task)=>
             task.text.toLowerCase().includes(searchText.toLowerCase()))
     }
+
+    updateData(){
+        this.service.getAll()
+            .then((data)=> {
+                console.log(data)
+            })
+    }
+
     render() {
         const {tasks, searchText} = this.state
         const filteredTasks = this.search(tasks, searchText)
