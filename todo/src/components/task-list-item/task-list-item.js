@@ -3,12 +3,20 @@ import './task-list-item.css'
 import React, {Component} from 'react';
 
 class TaskListItem extends Component {
+    componentDidMount() {
+        this.setState((st)=>{
+        return{
+            isComplete: this.props.isCompleted
+        }
+    })
+    }
     state = {
         isComplete : false
     }
     onClickText = ()=>{
-        this.setState((state)=>{
-            return {isComplete: !state.isComplete}
+        this.setState((stat)=>{
+            this.props.onChecked(!this.state.isComplete)
+            return {isComplete: !this.state.isComplete}
         })
     }
 

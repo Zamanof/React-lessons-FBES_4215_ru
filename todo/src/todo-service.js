@@ -2,23 +2,25 @@ export  default class TodoService{
     _base = 'http://localhost:5023/api/Todo'
 
     async getAll(){
-        const resource = await fetch(this._base)
-        return resource.json()
+        const resource = await fetch(`${this._base}?page=1&pageSize=100`)
+        const result = await resource.json()
+        return result.items
     }
     async getById(id){
         const resource = await fetch(`${this._base}/${id}`)
         return resource.json()
     }
-    addItem(text){
-        fetch(this._base,
-    {
-        method:"POST",
-        headers:{
-            "Content-Type":'application/json'
-        },
-        body:   JSON.stringify({text: text})
-    }
-    )
+
+    async addItem(text) {
+        return await fetch(this._base,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify({text: text})
+            }
+        )
     }
 
     changeStatus(id, status){

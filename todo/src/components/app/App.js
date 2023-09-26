@@ -11,45 +11,31 @@ import ItemAdd from "../item-add";
 import TodoService from "../../todo-service";
 
 class App extends Component {
-    // service = new TodoService()
+    service = new TodoService()
     constructor() {
         super();
-        // this.updateData()
-    }
-    componentDidMount() {
-        fetch('http://localhost:5023/api/Todo/1',
-            {
-                mode:"no-cors",
-               headers:{
-                   "Access-Control-Request":"access-control-allow-origin"
-               }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            });
+        this.updateData()
     }
     state = {
-        tasks:[
-            {id :1, text:'Buy bread'},
-            {id :2, text:'Buy notebook'},
-            {id :3, text:'Send homework nakonec to'},
-            {id :4, text:'Do homework'}
-        ],
+        tasks:[],
         searchText: ''
     }
     maxId = 1000;
     addItem = (text)=>{
-        const newItem ={
-            id:this.maxId++,
-            text: text
-        }
-        this.setState(({tasks})=>{
-        const newTasks = [...tasks, newItem]
-            return{
-            tasks: newTasks
-            }
-        })
+        // const newItem ={
+        //     id:this.maxId++,
+        //     text: text
+        // }
+        // this.setState(({tasks})=>{
+        // const newTasks = [...tasks, newItem]
+        //     return{
+        //     tasks: newTasks
+        //     }
+        // })
+        this.service.addItem(text).then(r => {
+            this.updateData()
+        });
+
     }
     deleteItem = (id)=>{
        this.setState(({tasks})=> {
@@ -73,11 +59,19 @@ class App extends Component {
             task.text.toLowerCase().includes(searchText.toLowerCase()))
     }
 
-    updateData(){
+    updateData = ()=>{
         this.service.getAll()
             .then((data)=> {
-                console.log(data)
+                this.setState((st)=>{
+                    return{
+                        tasks: data
+                    }
+                })
             })
+    }
+
+    onChangeStatus = (id, status)=>{
+        this.service.changeStatus(id, status)
     }
 
     render() {
@@ -100,6 +94,8 @@ class App extends Component {
                     <TaskList
                         tasks={filteredTasks}
                         onDeleted = {this.deleteItem}
+                        onChecked = {this.onChangeStatus}
+
                     />
                     <ItemAdd onAdded={this.addItem}/>
                 </div>
