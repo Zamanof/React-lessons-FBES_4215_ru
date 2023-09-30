@@ -5,16 +5,23 @@ import RandomEpisodes from "../random-episodes";
 import ItemList from "../item-list";
 import CharacterDetails from "../character-details";
 
-class App extends Component{
+class App extends Component {
     render() {
-        return(
+        return (
             <div>
                 <Header/>
                 <RandomEpisodes/>
-                <ItemList/>
-                <CharacterDetails/>
+                <div className="row mb2">
+                    <div className="col-md-6">
+                        <ItemList/>
+                    </div>
+                    <div className="col-md-6">
+                        <CharacterDetails/>
+                    </div>
+                </div>
             </div>
         )
     }
 }
+
 export default App
