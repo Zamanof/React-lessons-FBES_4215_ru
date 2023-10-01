@@ -10,17 +10,22 @@ class CharacterDetails extends Component {
         location:null,
         image:null
     }
-    constructor() {
-        super();
-    this.getCharacter(7)
-    }
-    getCharacter = (id)=>{
-        this.service.getCharacterByID(id)
-            .then((character)=>{
-                this.setState(character)
-            })
+   componentDidMount() {
+        this.updateCharacter()
+   }
+   componentDidUpdate(prevProps, prevState, snapshot) {
+       if(this.props.selectedId !== prevProps.selectedId){
+           this.updateCharacter()
+       }
+   }
 
-        }
+   updateCharacter = ()=>{
+        const {selectedId} = this.props
+        this.service.getCharacterByID(selectedId)
+           .then((character)=>{
+               this.setState(character)
+           })
+   }
     render() {
         const{name,
             gender,

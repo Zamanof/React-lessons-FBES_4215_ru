@@ -11,10 +11,14 @@ class RandomEpisodes extends Component {
         description:null,
         image: null
     }
-    constructor() {
-        super();
-        this.updateResources()
+
+    componentDidMount() {
+        this.interval  = setInterval(this.updateResources, 10000)
     }
+    componentWillUnmount() {
+        clearInterval(this.interval)
+    }
+
     updateResources = ()=>{
         const id = Math.floor(Math.random()*20 + 1)
         this.service.getEpisodeById(id)
@@ -22,22 +26,10 @@ class RandomEpisodes extends Component {
                 this.setState(episode)
             })
     }
-    // getEpisodeData = (season, episode)=>{
-    //     this.service.getOMDBData(season, episode)
-    //         .then((data)=>{
-    //             this.setState((old_state)=>{
-    //                 return{
-    //                     image: data.Poster,
-    //                     director: data.Director,
-    //                     description: data.Plot
-    //                 }
-    //             })
-    //         })
-    //
-    // }
     render() {
         const {name, year, director, description, image} = this.state
         return (
+
             <div
                 className="random-episodes alert alert-dismissible alert-light rounded">
                 <img className="episode-image"
@@ -58,7 +50,7 @@ class RandomEpisodes extends Component {
                         <span>{description}</span>
                     </li>
                 </ul>
-            </div>
+                </div>
             </div>
         );
     }

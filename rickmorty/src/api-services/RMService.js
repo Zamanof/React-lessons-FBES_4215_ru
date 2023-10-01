@@ -1,3 +1,5 @@
+import {logDOM} from "@testing-library/react";
+
 export default class RMService {
     _base_url = 'https://rickandmortyapi.com/api/'
 
@@ -34,6 +36,10 @@ export default class RMService {
         return this.characterDTO(character)
     }
 
+    getAllCharacters = async()=>{
+        const characters =  await this.getResource(`character`)
+        return characters.results.map((item)=> this.characterDTO(item))
+    }
     episodeDTO = async (data) => {
         const s = data.episode.slice(1, 3)
         const e = data.episode.slice(4, 6)
@@ -48,8 +54,9 @@ export default class RMService {
         return episode
     }
 
-    characterDTO = async (character)=>{
+    characterDTO = (character)=>{
         return {
+            id: character.id,
             name: character.name,
             gender: character.gender,
             species: character.species,
