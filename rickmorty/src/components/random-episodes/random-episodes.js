@@ -19,35 +19,25 @@ class RandomEpisodes extends Component {
         const id = Math.floor(Math.random()*20 + 1)
         this.service.getEpisodeById(id)
             .then((episode)=>{
-                this.setState((old_state)=>{
-                    const year = episode.air_date.split(', ')[1]
-                    const s = episode.episode.slice(1, 3)
-                    const e = episode.episode.slice(4, 6)
-                    this.getEpisodeData(s, e)
-                    return{
-                        name: episode.name,
-                        year: year
-                    }
-                })
+                this.setState(episode)
             })
     }
-    getEpisodeData = (season, episode)=>{
-        this.service.getOMDBData(season, episode)
-            .then((data)=>{
-                this.setState((old_state)=>{
-                    return{
-                        image: data.Poster,
-                        director: data.Director,
-                        description: data.Plot
-                    }
-                })
-            })
-
-    }
+    // getEpisodeData = (season, episode)=>{
+    //     this.service.getOMDBData(season, episode)
+    //         .then((data)=>{
+    //             this.setState((old_state)=>{
+    //                 return{
+    //                     image: data.Poster,
+    //                     director: data.Director,
+    //                     description: data.Plot
+    //                 }
+    //             })
+    //         })
+    //
+    // }
     render() {
         const {name, year, director, description, image} = this.state
         return (
-
             <div
                 className="random-episodes alert alert-dismissible alert-light rounded">
                 <img className="episode-image"

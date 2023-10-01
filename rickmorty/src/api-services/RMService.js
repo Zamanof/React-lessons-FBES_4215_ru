@@ -1,29 +1,61 @@
-export default class RMService{
+export default class RMService {
     _base_url = 'https://rickandmortyapi.com/api/'
 
-    async getResource(url){
+    async getResource(url) {
         const result =
             await fetch(`${this._base_url}${url}`)
-        if (!result.ok){
+        if (!result.ok) {
             throw new Error(`Error: Status code ${result.status}`)
         }
         return await result.json()
     }
 
-    async getEpisodeById(id){
+    getEpisodeById = async (id) => {
         const episode = await this.getResource(`episode/${id}`)
-        return await episode
+        return await this.episodeDTO(episode)
     }
 
-    async getOMDBData(season, episode){
+    getOMDBData = async (season, episode) => {
         const omdbData =
             await fetch(`https://www.omdbapi.com/?t=Rick&Morty&Season=${season}&Episode=${episode}&apikey=124df000`)
-        return await omdbData.json()
+        const result = await omdbData.json()
+
+        const data = {
+            director: result.Director,
+            description: result.Plot,
+            image: result.Poster
+        }
+        return data
     }
 
-    async getCharacterByID(id){
+    async getCharacterByID(id) {
         const character =
             await this.getResource(`character/${id}`)
-        return character
+        return this.characterDTO(character)
     }
+
+    episodeDTO = async (data) => {
+        const s = data.episode.slice(1, 3)
+        const e = data.episode.slice(4, 6)
+        const omdb = await this.getOMDBData(s, e)
+        const episode = {
+            name: data.name,
+            year: data.air_date.split(', ')[1],
+            director: omdb.director,
+            description: omdb.description,
+            image: omdb.image
+        }
+        return episode
+    }
+
+    characterDTO = async (character)=>{
+        return {
+            name: character.name,
+            gender: character.gender,
+            species: character.species,
+            location: character.location.name,
+            image: character.image
+        }
+    }
+
 }

@@ -17,16 +17,7 @@ class CharacterDetails extends Component {
     getCharacter = (id)=>{
         this.service.getCharacterByID(id)
             .then((character)=>{
-                this.setState((old_state)=>{
-                    return{
-                        name: character.name,
-                        gender: character.gender,
-                        species:character.species,
-                        location: character.location.name,
-                        image:character.image
-
-                    }
-                })
+                this.setState(character)
             })
 
         }
