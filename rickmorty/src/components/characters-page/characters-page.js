@@ -17,7 +17,6 @@ const CharactersPage = ({getData}) => {
                 <div className="col-md-6">
                     <CharacterDetails selectedId={selectedCharacter}/>
                 </div>
-
             </div>
         </div>
     );

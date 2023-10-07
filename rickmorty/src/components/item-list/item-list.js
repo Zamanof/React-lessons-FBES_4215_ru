@@ -9,7 +9,7 @@ class ItemList extends Component {
     componentDidMount() {
         const {getData} = this.props
         getData()
-            .then((itemList)=>{
+            .then(async (itemList)=>{
                 this.setState({itemList})
             })
     }
