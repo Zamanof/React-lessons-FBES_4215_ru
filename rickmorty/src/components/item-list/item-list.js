@@ -1,43 +1,39 @@
 import React, {Component} from 'react';
-
 import './item-list.css'
-import RMService from "../../api-services/RMService";
+
 class ItemList extends Component {
-    service = new RMService()
+
     state = {
-        characters: []
+        itemList: []
     }
     componentDidMount() {
-        this.service.getAllCharacters()
-            .then((characters)=>{
-                this.setState((old_state)=>{
-                    return {
-                        characters: characters
-                    }
-                })
+        const {getData} = this.props
+        getData()
+            .then((itemList)=>{
+                this.setState({itemList})
             })
     }
 
     renderCharacters = (items)=>{
-        return items.map((item)=>{
+        return items.map(({id, name})=>{
             return(
                 <li className='list-group-item'
-                    key={item.id}
+                    key={id}
                     onClick={()=>{
-                        this.props.onCharacterSelected(item.id)
+                        this.props.onCharacterSelected(id)
                     }}
                 >
-                    {item.name}
+                    {name}
                 </li>
             );
         });
 
     }
     render() {
-        const {characters} = this.state
+        const {itemList} = this.state
         return (
             <ul className='item-list list-group'>
-                {this.renderCharacters(characters)}
+                {this.renderCharacters(itemList.slice(0, 5))}
             </ul>
         );
     }
