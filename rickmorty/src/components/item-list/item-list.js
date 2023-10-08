@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './item-list.css'
+import {logDOM} from "@testing-library/react";
 
 class ItemList extends Component {
 
@@ -9,18 +10,20 @@ class ItemList extends Component {
     componentDidMount() {
         const {getData} = this.props
         getData()
-            .then(async (itemList)=>{
-                this.setState({itemList})
+            .then((items)=>{
+                Promise.all(items).then((itemList)=>{
+                    this.setState({itemList})
+                })
             })
     }
 
-    renderCharacters = (items)=>{
+    renderItems = (items)=>{
         return items.map(({id, name})=>{
             return(
                 <li className='list-group-item'
                     key={id}
                     onClick={()=>{
-                        this.props.onCharacterSelected(id)
+                        this.props.onItemSelected(id)
                     }}
                 >
                     {name}
@@ -33,7 +36,7 @@ class ItemList extends Component {
         const {itemList} = this.state
         return (
             <ul className='item-list list-group'>
-                {this.renderCharacters(itemList.slice(0, 5))}
+                {this.renderItems(itemList.slice(0, 8))}
             </ul>
         );
     }

@@ -11,7 +11,7 @@ const CharactersPage = ({getData}) => {
         <div>
             <div className="row mb2">
                 <div className="col-md-6">
-                    <ItemList onCharacterSelected={onCharacterSelected}
+                    <ItemList onItemSelected={onCharacterSelected}
                     getData = {getData}/>
                 </div>
                 <div className="col-md-6">

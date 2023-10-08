@@ -36,7 +36,7 @@ export default class RMService {
 
     getAllCharacters = async()=>{
         const characters =  await this.getResource(`character`)
-        return characters.results.map((item)=> this.characterDTO(item))
+       return characters.results.map((item)=> this.characterDTO(item))
     }
 
     getAllEpisodes = async ()=>{
@@ -52,27 +52,22 @@ export default class RMService {
         return result
     }
 
-    episodeDTO = (data) => {
+    episodeDTO = async (data) => {
         const s = data.episode.slice(1, 3)
         const e = data.episode.slice(4, 6)
-        const omdb = this.getData(s, e)
+        const omdb = await this.getData(s, e)
         const episode =  {
                 id: data.id,
                 name: data.name,
                 year: data.air_date.split(', ')[1],
-                director: null ,
-                description: null,
-                image: null
+                director: omdb.director ,
+                description: omdb.description,
+                image: omdb.image
             }
-            omdb.then((om)=>{
-                episode.director = om.director;
-                episode.image = om.image;
-                episode.description = om.description
-            })
         return episode
     }
 
-    characterDTO = (character)=>{
+    characterDTO = async (character)=>{
         return {
             id: character.id,
             name: character.name,
