@@ -47,15 +47,10 @@ export default class RMService {
             })
     }
 
-    getData = async (s, e)=>{
-        const result = await this.getOMDBData(s, e)
-        return result
-    }
-
     episodeDTO = async (data) => {
         const s = data.episode.slice(1, 3)
         const e = data.episode.slice(4, 6)
-        const omdb = await this.getData(s, e)
+        const omdb = await this.getOMDBData(s, e)
         const episode =  {
                 id: data.id,
                 name: data.name,
