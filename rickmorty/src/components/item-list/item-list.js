@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import './item-list.css'
-import {logDOM} from "@testing-library/react";
 
 class ItemList extends Component {
-
     state = {
         itemList: []
     }
@@ -36,7 +34,7 @@ class ItemList extends Component {
         const {itemList} = this.state
         return (
             <ul className='item-list list-group'>
-                {this.renderItems(itemList.slice(0, 8))}
+                {this.renderItems(itemList.slice(0, 5))}
             </ul>
         );
     }

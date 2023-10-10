@@ -36,7 +36,7 @@ export default class RMService {
 
     getAllCharacters = async()=>{
         const characters =  await this.getResource(`character`)
-       return characters.results.map((item)=> this.characterDTO(item))
+        return characters.results.map((item)=> this.characterDTO(item))
     }
 
     getAllEpisodes = async ()=>{

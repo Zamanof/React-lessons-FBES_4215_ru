@@ -13,6 +13,7 @@ class RandomEpisodes extends Component {
     }
 
     componentDidMount() {
+        this.updateResources()
         this.interval  = setInterval(this.updateResources, 10000)
     }
     componentWillUnmount() {
