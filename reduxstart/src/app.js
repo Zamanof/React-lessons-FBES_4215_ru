@@ -1,16 +1,8 @@
 import React from 'react';
 import Counter from "./counter";
-const App = ({counter, increment, decrement, random})=> {
+const App = ()=> {
     return (
-        <Counter
-            counter={counter}
-            increment={increment}
-            decrement={decrement}
-            random={()=>{
-                const payload = Math.floor(Math.random() * 10)
-                random(payload)
-            }}
-        />
+        <Counter />
     );
 }
 
