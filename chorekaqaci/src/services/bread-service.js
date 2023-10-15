@@ -1,4 +1,4 @@
-export default class BreadTreeStoreService{
+export default class BreadStoreService{
     getBreads() {
         return []
     }
